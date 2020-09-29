@@ -11,24 +11,27 @@ class MySocket:
         print('connecting to {} port {}'.format(*self.server_address))
         self.sock.connect(self.server_address)
     
-    def run(self):
+    def run(self, message):
+        recievedMessage = ""
         try:
 
             # Send data
-            message = b'This is the message.  It will be repeated.'
+            byteMessage = message.encode("utf-8")
             print('sending {!r}'.format(message))
-            self.sock.sendall(message)
+            self.sock.sendall(byteMessage)
 
             # Look for the response
             amount_received = 0
-            amount_expected = len(message)
+            amount_expected = len(byteMessage)
 
             while amount_received < amount_expected:
                 data = self.sock.recv(16)
                 amount_received += len(data)
-                print('received {!r}'.format(data))
+                recievedMessage += data.decode("utf-8")
 
         finally:
+            if recievedMessage == message:
+                print("Message sent successfully :D")
             print('closing socket')
             self.sock.close()
 
