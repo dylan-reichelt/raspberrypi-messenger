@@ -16,7 +16,7 @@ class MyWeather():
 
     def getWeatherData(self):
         final_url = self.BASE_URL.format(self.settings["api_key"],self.settings["zip_code"],self.settings["country_code"],self.settings["temp_unit"])
-        weather_data = requests.get(final_url).json()
+        weather_data = requests.get(final_url)
         return weather_data
         
     
