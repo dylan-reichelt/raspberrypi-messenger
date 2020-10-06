@@ -14,13 +14,22 @@ from PIL import Image, ImageDraw, ImageFont
 output = ""
 myServer = MyServer(sys.argv[1], sys.argv[2])
 
+def timeConvert(timeIn):
+    hours, minutes = timeIn.split(":")
+    hours, minutes = int(hours), int(minutes)
+    setting = "am"
+    if hours > 12:
+        setting = "pm"
+        hours -= 12
+    return ("%02d:%02d" + setting) % (hours, minutes)
+
 def applicationStart():
     pygame.init()
-    screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
-    #screen = pygame.display.set_mode((800, 480))
+    #screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((800, 480))
     apiweather = MyWeather()
-    pasttime = datetime.now().strftime("%H:%M")
-    string_current_time = datetime.now().strftime("%H:%M")
+    pasttime = timeConvert(datetime.now().strftime("%H:%M"))
+    string_current_time = timeConvert(datetime.now().strftime("%H:%M"))
     first = True
 
     picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'pic')
@@ -93,7 +102,7 @@ def applicationStart():
             else:
                 error = True
         
-        string_current_time = datetime.now().strftime("%H:%M")
+        string_current_time = timeConvert(datetime.now().strftime("%H:%M"))
         # Open template file
         template = Image.open(os.path.join(picdir, 'template.png'))
         # Initialize the drawing context with template as background
@@ -111,7 +120,17 @@ def applicationStart():
         draw.text((30, 260), string_temp_min, font=font22, fill=black)
         # Draw top right box
         global output
-        draw.text((325, 35), string_current_time, font=font160, fill=black)
+
+        if "pm" in string_current_time:
+            string_current_time = string_current_time.replace("pm","")
+            draw.text((325, 35), string_current_time, font=font160, fill=black)
+            draw.text((725, 150), "pm", font=font35, fill=black)
+        
+        elif "am" in string_current_time:
+            string_current_time = string_current_time.replace("am","")
+            draw.text((325, 35), string_current_time, font=font160, fill=black)
+            draw.text((725, 150), "am", font=font35, fill=black) 
+
         draw.text((270, 220), output, font=font30, fill=black)
         # Draw bottom left box
         draw.text((110, 325), string_temp_current, font=font50, fill=black)
