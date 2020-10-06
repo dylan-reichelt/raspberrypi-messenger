@@ -17,6 +17,7 @@ myServer = MyServer(sys.argv[1], sys.argv[2])
 def applicationStart():
     pygame.init()
     screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
+    #screen = pygame.display.set_mode((800, 480))
     apiweather = MyWeather()
     pasttime = datetime.now().strftime("%H:%M")
     string_current_time = datetime.now().strftime("%H:%M")
@@ -148,8 +149,8 @@ def applicationStart():
         
         color = (0,0,0) 
         smallfont = pygame.font.SysFont('Corbel',35) 
-        text = smallfont.render('quit' , True , color) 
-        screen.blit(text , (725,15))  
+        quitText = smallfont.render('quit' , True , color)
+        screen.blit(quitText , (725,15))
 
         mouse = pygame.mouse.get_pos()  
         pygame.display.update()

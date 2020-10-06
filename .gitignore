@@ -139,3 +139,4 @@ cython_debug/
 
 #constant file
 constant.py
+./server/pic/screen_output.png
