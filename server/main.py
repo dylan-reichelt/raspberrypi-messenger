@@ -16,8 +16,7 @@ myServer = MyServer(sys.argv[1], sys.argv[2])
 
 def applicationStart():
     pygame.init()
-    #screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((800, 480))
+    screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
     apiweather = MyWeather()
     pasttime = datetime.now().strftime("%H:%M")
     string_current_time = datetime.now().strftime("%H:%M")
@@ -105,8 +104,6 @@ def applicationStart():
         icon_image = Image.open(os.path.join(icondir, icon_file))
         ### Paste the image
         template.paste(icon_image, (40, 15))
-        ## Place a black rectangle outline
-        draw.rectangle((25, 20, 225, 180), outline=black)
         ## Draw text
         draw.text((30, 200), string_report, font=font22, fill=black)
         draw.text((30, 230), string_temp_max, font=font22, fill=black)
@@ -133,6 +130,28 @@ def applicationStart():
         image0 = pygame.image.load(os.path.join(picdir, 'screen_output.png'))
         screen.fill((0,0,0))
         screen.blit(image0,(0,0))
+        
+
+        for ev in pygame.event.get(): 
+          
+            if ev.type == pygame.QUIT: 
+                pygame.quit() 
+              
+            #checks if a mouse is clicked 
+            if ev.type == pygame.MOUSEBUTTONDOWN: 
+              
+                #if the mouse is clicked on the 
+                # button the game is terminated 
+                if 725 <= mouse[0] <= 725+100 and 15 <= mouse[1] <= 15+40: 
+                    pygame.quit()
+                    sys.exit()
+        
+        color = (0,0,0) 
+        smallfont = pygame.font.SysFont('Corbel',35) 
+        text = smallfont.render('quit' , True , color) 
+        screen.blit(text , (725,15))  
+
+        mouse = pygame.mouse.get_pos()  
         pygame.display.update()
 
 def serverStart():

@@ -6,6 +6,8 @@ from pprint import pprint
 
 class MyWeather():
     def __init__(self):
+        # Studio City Zip: 91604
+
         self.settings = {
             'api_key': constant.WEATHER_API_KEY,
             'zip_code':'91604',
