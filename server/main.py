@@ -80,7 +80,6 @@ def applicationStart():
                 temp_max = current['temp_max']
                 temp_min = current['temp_min']
                     
-                #TODO add location based from api response
                 string_location_city = data['name']
                 string_temp_current = format(current_temp, '.0f') + u'\N{DEGREE SIGN}F'
                 string_feels_like = 'Feels like: ' + format(feels_like, '.0f') +  u'\N{DEGREE SIGN}F'
@@ -89,12 +88,12 @@ def applicationStart():
                 string_report = 'Now: ' + report.title()
                 string_temp_max = 'High: ' + format(temp_max, '>.0f') + u'\N{DEGREE SIGN}F'
                 string_temp_min = 'Low:  ' + format(temp_min, '>.0f') + u'\N{DEGREE SIGN}F'
-                string_current_time = datetime.now().strftime("%H:%M")
+
                 error = False
             else:
-                print(response)
-                print("OH NO")
-
+                error = True
+        
+        string_current_time = datetime.now().strftime("%H:%M")
         # Open template file
         template = Image.open(os.path.join(picdir, 'template.png'))
         # Initialize the drawing context with template as background
