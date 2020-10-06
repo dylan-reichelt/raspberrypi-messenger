@@ -6,16 +6,22 @@ from server import MyServer
 import time
 import threading
 import os
+import pygame
 from datetime import datetime
 from MyWeather import MyWeather
 from PIL import Image, ImageDraw, ImageFont
 
-newOutput = False
 output = ""
 myServer = MyServer(sys.argv[1], sys.argv[2])
 
 def applicationStart():
+    pygame.init()
+    #screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((800, 480))
     apiweather = MyWeather()
+    pasttime = datetime.now().strftime("%H:%M")
+    string_current_time = datetime.now().strftime("%H:%M")
+    first = True
 
     picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'pic')
     icondir = os.path.join(picdir, 'icon')
@@ -36,11 +42,15 @@ def applicationStart():
 
     while(True):
         error_connect = True
-        while error_connect:
+        while error_connect == True:
             try:
-                print('Attempting to connect to OWM.')
-                response = apiweather.getWeatherData()
-                print('Connection to OWM successful.')
+                if(pasttime != string_current_time or first == True):
+                    print('Attempting to connect to OWM.')
+                    response = apiweather.getWeatherData()
+                    print('Connection to OWM successful.')
+                    pasttime = string_current_time
+                    first = False
+                    print(response.json())
                 error_connect = False
             except:
                 print('Connection error.')
@@ -49,10 +59,8 @@ def applicationStart():
         error = None
         while error == None:
             if response.status_code == 200:
-                print('Connection to Open Weather successful.')
                 # get data in json format
                 data = response.json()
-                print(data)
                 
                 # get current dict block
                 current = data['main']
@@ -73,7 +81,7 @@ def applicationStart():
                 temp_min = current['temp_min']
                     
                 #TODO add location based from api response
-                string_location = "CITY"
+                string_location_city = data['name']
                 string_temp_current = format(current_temp, '.0f') + u'\N{DEGREE SIGN}F'
                 string_feels_like = 'Feels like: ' + format(feels_like, '.0f') +  u'\N{DEGREE SIGN}F'
                 string_humidity = 'Humidity: ' + str(humidity) + '%'
@@ -81,7 +89,7 @@ def applicationStart():
                 string_report = 'Now: ' + report.title()
                 string_temp_max = 'High: ' + format(temp_max, '>.0f') + u'\N{DEGREE SIGN}F'
                 string_temp_min = 'Low:  ' + format(temp_min, '>.0f') + u'\N{DEGREE SIGN}F'
-
+                string_current_time = datetime.now().strftime("%H:%M")
                 error = False
             else:
                 print(response)
@@ -102,55 +110,38 @@ def applicationStart():
         draw.rectangle((25, 20, 225, 180), outline=black)
         ## Draw text
         draw.text((30, 200), string_report, font=font22, fill=black)
+        draw.text((30, 230), string_temp_max, font=font22, fill=black)
+        draw.text((30, 260), string_temp_min, font=font22, fill=black)
         # Draw top right box
-        draw.text((375, 35), string_temp_current, font=font160, fill=black)
-        draw.text((350, 210), string_feels_like, font=font50, fill=black)
+        global output
+        draw.text((325, 35), string_current_time, font=font160, fill=black)
+        draw.text((270, 220), output, font=font30, fill=black)
         # Draw bottom left box
-        draw.text((35, 325), string_temp_max, font=font50, fill=black)
-        draw.rectangle((170, 385, 265, 387), fill=black)
-        draw.text((35, 390), string_temp_min, font=font50, fill=black)
+        draw.text((110, 325), string_temp_current, font=font50, fill=black)
+        draw.text((35, 400), string_feels_like, font=font35, fill=black)
         # Draw bottom middle box
         draw.text((345, 340), string_humidity, font=font30, fill=black)
         draw.text((345, 400), string_wind, font=font30, fill=black)
         # Draw bottom right box
-        draw.text((627, 330), 'UPDATED', font=font35, fill=white)
-        current_time = datetime.now().strftime('%H:%M')
-        draw.text((627, 375), current_time, font = font60, fill=white)
-
-        ## Add Message
-        global output
-        global newOutput
-        global myServer
-
-        if(newOutput):
-            myServer.setNewOutput(False)
-            newOutput = False
-            draw.rectangle((345, 13, 705, 55), fill =black)
-            draw.text((355, 15), output, font=font30, fill=white)
+        draw.text((610, 330), 'Location: ', font=font22, fill=white)
+        draw.text((610, 375), string_location_city, font = font22, fill=white)
         
         # Save the image for display as PNG
         screen_output_file = os.path.join(picdir, 'screen_output.png')
         template.save(screen_output_file)
         # Close the template file
         template.close()
-
-        print('Writing to screen.')
-        # Open the template
-        with Image.open(os.path.join(picdir, screen_output_file)) as screen_output_file:
-            # Initialize the drawing context with template as background
-            screen_output_file.show()
-            # Sleep
-            print('Sleeping for ' + str(60) +'.')
-            time.sleep(60)
+        image0 = pygame.image.load(os.path.join(picdir, 'screen_output.png'))
+        screen.fill((0,0,0))
+        screen.blit(image0,(0,0))
+        pygame.display.update()
 
 def serverStart():
     global output
-    global newOutput
     global myServer
     
     myServer.run()
     output = myServer.getOutput()
-    newOutput = myServer.getNewOutput()
     serverStart()
 
 thread = threading.Thread(target = serverStart)
