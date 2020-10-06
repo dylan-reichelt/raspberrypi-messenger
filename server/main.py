@@ -25,9 +25,13 @@ def timeConvert(timeIn):
 
 def applicationStart():
     pygame.init()
-    #screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((800, 480))
+    screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
+    #screen = pygame.display.set_mode((800, 480))
     apiweather = MyWeather()
+
+    if len(sys.argv) > 3:
+        apiweather.setZipCode(sys.argv[3])
+        
     pasttime = timeConvert(datetime.now().strftime("%H:%M"))
     string_current_time = timeConvert(datetime.now().strftime("%H:%M"))
     first = True
@@ -122,13 +126,13 @@ def applicationStart():
         global output
 
         if "pm" in string_current_time:
-            string_current_time = string_current_time.replace("pm","")
-            draw.text((325, 35), string_current_time, font=font160, fill=black)
+            tempTime = string_current_time.replace("pm","")
+            draw.text((325, 35), tempTime, font=font160, fill=black)
             draw.text((725, 150), "pm", font=font35, fill=black)
         
         elif "am" in string_current_time:
-            string_current_time = string_current_time.replace("am","")
-            draw.text((325, 35), string_current_time, font=font160, fill=black)
+            tempTime = string_current_time.replace("am","")
+            draw.text((325, 35), tempTime, font=font160, fill=black)
             draw.text((725, 150), "am", font=font35, fill=black) 
 
         draw.text((270, 220), output, font=font30, fill=black)
