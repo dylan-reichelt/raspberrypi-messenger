@@ -29,6 +29,8 @@ def applicationStart():
     #screen = pygame.display.set_mode((800, 480))
     apiweather = MyWeather()
 
+    pastoutput = "past"
+
     if len(sys.argv) > 3:
         apiweather.setZipCode(sys.argv[3])
         
@@ -147,11 +149,16 @@ def applicationStart():
         draw.text((610, 375), string_location_city, font = font22, fill=white)
         
         # Save the image for display as PNG
-        screen_output_file = os.path.join(picdir, 'screen_output.png')
-        template.save(screen_output_file)
+        if(pasttime != string_current_time or pastoutput != output):
+            print("Loading and saving new file!")
+            screen_output_file = os.path.join(picdir, 'screen_output.png')
+            template.save(screen_output_file)
+            image0 = pygame.image.load(os.path.join(picdir, 'screen_output.png'))
+            pastoutput = output
+
+        
         # Close the template file
         template.close()
-        image0 = pygame.image.load(os.path.join(picdir, 'screen_output.png'))
         screen.fill((0,0,0))
         screen.blit(image0,(0,0))
         
