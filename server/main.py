@@ -21,6 +21,10 @@ def timeConvert(timeIn):
     if hours > 12:
         setting = "pm"
         hours -= 12
+
+    if hours == 00:
+        hours = 12
+
     return ("%02d:%02d" + setting) % (hours, minutes)
 
 def applicationStart():
@@ -109,8 +113,16 @@ def applicationStart():
                 error = True
         
         string_current_time = timeConvert(datetime.now().strftime("%H:%M"))
-        # Open template file
-        template = Image.open(os.path.join(picdir, 'template.png'))
+
+        # Open correct template and icon file
+        if "n" in icon_code:
+            template = Image.open(os.path.join(picdir, 'night_template.png'))
+        else:
+            template = Image.open(os.path.join(picdir, 'template.png'))
+
+        #set correct fill color
+        fillColor = black
+
         # Initialize the drawing context with template as background
         draw = ImageDraw.Draw(template)
     
@@ -121,29 +133,29 @@ def applicationStart():
         ### Paste the image
         template.paste(icon_image, (40, 15))
         ## Draw text
-        draw.text((30, 200), string_report, font=font22, fill=black)
-        draw.text((30, 230), string_temp_max, font=font22, fill=black)
-        draw.text((30, 260), string_temp_min, font=font22, fill=black)
+        draw.text((30, 200), string_report, font=font22, fill=fillColor)
+        draw.text((30, 230), string_temp_max, font=font22, fill=fillColor)
+        draw.text((30, 260), string_temp_min, font=font22, fill=fillColor)
         # Draw top right box
         global output
 
         if "pm" in string_current_time:
             tempTime = string_current_time.replace("pm","")
-            draw.text((325, 35), tempTime, font=font160, fill=black)
-            draw.text((725, 150), "pm", font=font35, fill=black)
+            draw.text((325, 35), tempTime, font=font160, fill=fillColor)
+            draw.text((725, 150), "pm", font=font35, fill=fillColor)
         
         elif "am" in string_current_time:
             tempTime = string_current_time.replace("am","")
-            draw.text((325, 35), tempTime, font=font160, fill=black)
-            draw.text((725, 150), "am", font=font35, fill=black) 
+            draw.text((325, 35), tempTime, font=font160, fill=fillColor)
+            draw.text((725, 150), "am", font=font35, fill=fillColor) 
 
-        draw.text((270, 220), output, font=font30, fill=black)
+        draw.text((270, 220), output, font=font30, fill=fillColor)
         # Draw bottom left box
-        draw.text((110, 325), string_temp_current, font=font50, fill=black)
-        draw.text((35, 400), string_feels_like, font=font35, fill=black)
+        draw.text((110, 325), string_temp_current, font=font50, fill=fillColor)
+        draw.text((35, 400), string_feels_like, font=font35, fill=fillColor)
         # Draw bottom middle box
-        draw.text((345, 340), string_humidity, font=font30, fill=black)
-        draw.text((345, 400), string_wind, font=font30, fill=black)
+        draw.text((345, 340), string_humidity, font=font30, fill=fillColor)
+        draw.text((345, 400), string_wind, font=font30, fill=fillColor)
         # Draw bottom right box
         draw.text((610, 330), 'Location: ', font=font22, fill=white)
         draw.text((610, 375), string_location_city, font = font22, fill=white)
