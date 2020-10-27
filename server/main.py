@@ -29,8 +29,8 @@ def timeConvert(timeIn):
 
 def applicationStart():
     pygame.init()
-    #screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
-    screen = pygame.display.set_mode((800, 480))
+    screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
+    #screen = pygame.display.set_mode((800, 480))
     apiweather = MyWeather()
 
     pastoutput = "past"
