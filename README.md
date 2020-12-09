@@ -32,6 +32,7 @@ Open Weather API Needed, as well as other misc. items:
 pip install openweather
 pip install pygame
 pip install Pillow
+pip install requests
 ```
 
 Once these are all installed you will need to put your OpenWeather API Key into a constant file.
