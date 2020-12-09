@@ -102,6 +102,12 @@ closing socket
 
 NOTE: This is automating an ngrok TCP tunnel processes as well. The tunnel is connected to localhost port 4556. In order to get NGROK working go to www.ngrok.com.
 
+## Credit
+
+Thank you to AbnormalDistributions for the idea / basecode: https://github.com/AbnormalDistributions/e_paper_weather_display
+
+Thank you to Erik Flowers for the icon design: https://erikflowers.github.io/weather-icons/
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
