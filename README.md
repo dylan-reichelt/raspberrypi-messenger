@@ -30,18 +30,51 @@ Follow these steps for that:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) Create constant.py file in the server directory
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) Enter "WEATHER_API_KEY = <API KEY>"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) Enter "WEATHER_API_KEY = [Your API Key]"
 
 You should be done. Then move on to usage and test.
 
 ## Usage
 
-```python
-import foobar
+<ins>Server:</ins>
 
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+format:
+```bash
+python3 main.py <host> <port> <zipcode>
+```
+
+NOTE: Zipcode is optional. It is used to gather weather data about that location. Default value is 91604 (Studio City).
+
+```bash
+cd server/
+python3 main.py localhost 4556
+```
+
+```bash
+cd server/
+python3 main.py localhost 4556 85251
+```
+
+<ins>Client:</ins>
+
+format:
+```bash
+python3 main.py <host> <port> <message>
+```
+
+NOTE: Zipcode is optional. It is used to gather weather data about that location. Default value is 91604 (Studio City).
+
+```bash
+cd client/
+python3 main.py localhost 4556 "This is a test"
+```
+Response from server:
+
+```bash
+connecting to localhost port 4556
+sending 'This is a test'
+Message sent successfully :D
+closing socket
 ```
 
 ## Contributing
