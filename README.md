@@ -89,7 +89,7 @@ closing socket
 
 3) Double click and it should start the application
 
-NOTE: This is automating an ngrok processes as well, on localhost port 4556. In order to get NGROK working go to www.ngrok.com.
+NOTE: This is automating an ngrok TCP tunnel processes as well. The tunnel is connected to localhost port 4556. In order to get NGROK working go to www.ngrok.com.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
