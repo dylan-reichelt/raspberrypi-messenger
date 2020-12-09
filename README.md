@@ -1,6 +1,6 @@
 # raspberrypi-messenger
 
-Name is a tad misleading. This application is a clock and weather display. It also has the capability to receive messages from a client and display
+Name is a tad misleading. This application is a clock and weather display (based off of https://github.com/AbnormalDistributions/e_paper_weather_display). It also has the capability to receive messages from a client and display
 them underneath the clock. This is a good present for long distance relationships or anyone you want to send fun messages to. In order
 to send messages from seperate networks without opening ports and all that jazz you can utilize NGROK. I will not be showing how to do that
 in this README, please look at their website: www.ngrok.com.
