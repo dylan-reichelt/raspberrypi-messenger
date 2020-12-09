@@ -13,6 +13,10 @@ Items Recommended:
 
 3) [Touchscreen Case](https://www.amazon.com/Raspberry-Screen-Monitor-Touchscreen-Display/dp/B081VT2CPW/ref=sr_1_9?dchild=1&keywords=7+inch+raspberry+pi+screen+case&qid=1607539239&sr=8-9)
 
+## Pictures
+
+
+
 ## Installation
 
 Open Weather API Needed, as well as other misc. items:
