@@ -28,7 +28,7 @@ Follow these steps for that:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) Obtain OpenWeatherAPI Key: https://openweathermap.org/
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) Create constant.py file in project directory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) Create constant.py file in the server directory
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) Enter "WEATHER_API_KEY = <API KEY>"
 

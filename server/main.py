@@ -1,7 +1,5 @@
 
 import sys
-from pprint import pprint
-from tkinter import *
 from server import MyServer
 import time
 import threading
@@ -113,7 +111,7 @@ def applicationStart():
                 error = True
         
         string_current_time = timeConvert(datetime.now().strftime("%H:%M"))
-
+        
         # Open correct template and icon file
         if "n" in icon_code:
             template = Image.open(os.path.join(picdir, 'night_template.png'))
