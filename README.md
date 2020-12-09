@@ -43,7 +43,7 @@ format:
 python3 main.py <host> <port> <zipcode>
 ```
 
-NOTE: Zipcode is optional. It is used to gather weather data about that location. Default value is 91604 (Studio City).
+Example:
 
 ```bash
 cd server/
@@ -55,6 +55,8 @@ cd server/
 python3 main.py localhost 4556 85251
 ```
 
+NOTE: Zipcode is optional. It is used to gather weather data about that location. Default value is 91604 (Studio City).
+
 <ins>Client:</ins>
 
 format:
@@ -62,7 +64,7 @@ format:
 python3 main.py <host> <port> <message>
 ```
 
-NOTE: Zipcode is optional. It is used to gather weather data about that location. Default value is 91604 (Studio City).
+Example:
 
 ```bash
 cd client/
@@ -76,6 +78,18 @@ sending 'This is a test'
 Message sent successfully :D
 closing socket
 ```
+
+## Optional Steps
+
+<ins>Shortcut for automated start:</ins>
+
+1) right-click and hit "create shortcut" for start.sh
+
+2) Drag that shortcut wherever you wish
+
+3) Double click and it should start the application
+
+NOTE: This is automating an ngrok processes as well, on localhost port 4556. In order to get NGROK working go to www.ngrok.com.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
