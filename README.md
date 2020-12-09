@@ -15,7 +15,14 @@ Items Recommended:
 
 ## Pictures
 
+<ins>No Message Displayed:</ins>
 
+<img src="https://github.com/dylan-reichelt/raspberrypi-messenger/blob/master/example_pics/home_nomessage" width=40% height=40%>
+
+
+<ins>Message Displayed:</ins>
+
+<img src="https://github.com/dylan-reichelt/raspberrypi-messenger/blob/master/example_pics/homescreen_message.png" width=40% height=40%>
 
 ## Installation
 
